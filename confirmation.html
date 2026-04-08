@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEBBI GADGETS - Order Confirmation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>JEBBI GADGETS</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#catalogue">Catalogue</a>
+        </nav>
+    </header>
+
+    <section class="confirmation-section">
+        <div class="confirmation-icon">✓</div>
+        <h2>Order Confirmed!</h2>
+        <p>Thank you for your purchase! Your order has been placed successfully.</p>
+        <div id="order-details"></div>
+        <div class="confirmation-actions">
+            <a href="index.html" class="btn-success">Continue Shopping</a>
+            <button onclick="printOrder()" class="btn-print">Print Receipt</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 JEBBI GADGETS. All rights reserved.</p>
+        <p>Contact: info@jebbigadgets.com</p>
+    </footer>
+
+    <script>
+        // Load order details from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderNumber = urlParams.get('order');
+
+        if (orderNumber) {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const order = orders.find(o => o.orderNumber === orderNumber);
+
+            if (order) {
+                const orderDetails = document.getElementById('order-details');
+                orderDetails.innerHTML = `
+                    <div class="order-info">
+                        <p><strong>Order Number:</strong> ${order.orderNumber}</p>
+                        <p><strong>Date:</strong> ${order.date}</p>
+                        <p><strong>Customer:</strong> ${order.shipping.fullname}</p>
+                        <p><strong>Email:</strong> ${order.shipping.email}</p>
+                        <p><strong>Phone:</strong> ${order.shipping.phone}</p>
+                        <p><strong>Delivery Address:</strong> ${order.shipping.address}, ${order.shipping.city}</p>
+                        <p><strong>Payment Method:</strong> ${order.payment.method}</p>
+                        <p><strong>Total Amount:</strong> $${order.total.toFixed(2)}</p>
+                    </div>
+                    <div class="order-items">
+                        <h3>Order Items:</h3>
+                        ${order.items.map(item => `
+                            <div class="order-item">
+                                <span>${item.name} x${item.quantity}</span>
+                                <span>$${item.price.toFixed(2)} each</span>
+                                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+
+        function printOrder() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

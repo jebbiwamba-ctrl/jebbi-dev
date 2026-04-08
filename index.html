@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEBBI GADGETS - Electronic Gadgets Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>JEBBI GADGETS</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#catalogue">Catalogue</a>
+            <a href="#cart" id="cart-link">Cart (<span id="cart-count">0</span>) - Total: $<span id="cart-total-header">0.00</span></a>
+            <a href="login.html" class="nav-auth-link" id="login-nav">Login</a>
+<a href="register.html" class="nav-auth-link" id="register-nav">Register</a>
+            <a href="admin.html" class="nav-auth-link" id="admin-nav" style="display:none;">Admin</a>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <img src="Images/Heo image 3.jpg" alt="hero image" class="hero-bg-image">
+        
+        <p>Discover the latest electronic gadgets at unbeatable prices!</p>
+        <a href="#catalogue" class="btn">Shop Now</a>
+    </section>
+
+    <section id="catalogue">
+        <h2>Product Catalogue</h2>
+        <div class="filters">
+            <label for="category-filter">Filter by Category:</label>
+            <select id="category-filter">
+                <option value="all">All</option>
+                <option value="smartphones">Smartphones</option>
+                <option value="laptops">Laptops</option>
+                <option value="headphones">Headphones</option>
+                <option value="smartwatches">Smartwatches</option>
+                <option value="tablets">Tablets</option>
+                <option value="gaming">Gaming</option>
+                <option value="cameras">Cameras</option>
+                <option value="drones">Drones</option>
+            </select>
+        </div>
+        <div id="products" class="products-grid"></div>
+    </section>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="product-details"></div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cart-items"></div>
+            <p>Total: $<span id="cart-total">0.00</span></p>
+            <button id="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content checkout-form">
+            <span class="close">&times;</span>
+            <h2>Checkout</h2>
+            <form id="checkout-form">
+                <h3>Shipping Information</h3>
+                <input type="text" id="fullname" placeholder="Full Name" required>
+                <input type="email" id="email" placeholder="Email Address" required>
+                <input type="tel" id="phone" placeholder="Phone Number" required>
+                <input type="text" id="address" placeholder="Delivery Address" required>
+                <input type="text" id="city" placeholder="City" required>
+
+                <h3>Order Summary</h3>
+                <div id="checkout-summary"></div>
+                <p class="checkout-total">Total Amount: $<span id="checkout-total">0.00</span></p>
+
+                <h3>Payment Method</h3>
+                <div class="payment-methods">
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="mtn" required>
+                        <span class="payment-label">
+                            <strong>MTN Mobile Money</strong>
+                            <small>Fast and secure mobile payment</small>
+                        </span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="airtel">
+                        <span class="payment-label">
+                            <strong>Airtel Mobile Money</strong>
+                            <small>Easy mobile money transfer</small>
+                        </span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="creditcard">
+                        <span class="payment-label">
+                            <strong>Credit/Debit Card</strong>
+                            <small>Visa, Mastercard accepted</small>
+                        </span>
+                    </label>
+                </div>
+
+                <div id="mtn-section" class="payment-section" style="display:none;">
+                    <h4>MTN Mobile Money Details</h4>
+                    <input type="text" id="mtn-phone" placeholder="MTN Mobile Money Phone Number">
+                    <input type="password" id="mtn-pin" placeholder="Mobile Money PIN">
+                </div>
+
+                <div id="airtel-section" class="payment-section" style="display:none;">
+                    <h4>Airtel Mobile Money Details</h4>
+                    <input type="text" id="airtel-phone" placeholder="Airtel Mobile Money Phone Number">
+                    <input type="password" id="airtel-pin" placeholder="Mobile Money PIN">
+                </div>
+
+                <div id="card-section" class="payment-section" style="display:none;">
+                    <h4>Card Details</h4>
+                    <input type="text" id="card-number" placeholder="Card Number" maxlength="19">
+                    <input type="text" id="card-name" placeholder="Cardholder Name">
+                    <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5">
+                    <input type="text" id="card-cvv" placeholder="CVV" maxlength="3">
+                </div>
+
+                <button type="submit" class="btn-pay">Complete Payment</button>
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content confirmation-content">
+            <span class="close">&times;</span>
+            <div class="confirmation-icon">✓</div>
+            <h2>Order Confirmed!</h2>
+            <p id="confirmation-message"></p>
+            <div id="order-details"></div>
+            <button class="btn-success" onclick="completeOrder()">Continue Shopping</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 JEBBI GADGETS. All rights reserved.</p>
+        <p>Contact: info@jebbigadgets.com</p>
+    </footer>
+
+    <div id="toast" class="toast">Item added! Total: $<span id="toast-total">0.00</span></div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Update login/register visibility based on auth status
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('jebbi_current_user'));
+            const loginNav = document.getElementById('login-nav');
+            const registerNav = document.getElementById('register-nav');
+            const adminNav = document.getElementById('admin-nav');
+            
+            if (currentUser) {
+                if (loginNav) loginNav.style.display = 'none';
+                if (registerNav) registerNav.style.display = 'none';
+                if (adminNav && currentUser.role === 'admin') {
+                    adminNav.style.display = 'inline-block';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEBBI GADGETS - Checkout Step 3: Payment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>JEBBI GADGETS</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#catalogue">Catalogue</a>
+            <a href="index.html#cart" id="cart-link">Cart (<span id="cart-count">0</span>) - Total: $<span id="cart-total-header">0.00</span></a>
+        </nav>
+    </header>
+
+    <section class="checkout-step">
+        <div class="step-indicator">
+            <div class="step completed">1</div>
+            <div class="step-line completed"></div>
+            <div class="step completed">2</div>
+            <div class="step-line completed"></div>
+            <div class="step active">3</div>
+        </div>
+        <h2>Payment Method</h2>
+        <form id="payment-form">
+            <div class="payment-methods">
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="mtn" required>
+                    <span class="payment-label">
+                        <strong>MTN Mobile Money</strong>
+                        <small>Fast and secure mobile payment</small>
+                    </span>
+                </label>
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="airtel">
+                    <span class="payment-label">
+                        <strong>Airtel Mobile Money</strong>
+                        <small>Easy mobile money transfer</small>
+                    </span>
+                </label>
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="creditcard">
+                    <span class="payment-label">
+                        <strong>Credit/Debit Card</strong>
+                        <small>Visa, Mastercard accepted</small>
+                    </span>
+                </label>
+            </div>
+
+            <div id="mtn-section" class="payment-section" style="display:none;">
+                <h4>MTN Mobile Money Details</h4>
+                <input type="text" id="mtn-phone" placeholder="MTN Mobile Money Phone Number">
+                <input type="password" id="mtn-pin" placeholder="Mobile Money PIN">
+            </div>
+
+            <div id="airtel-section" class="payment-section" style="display:none;">
+                <h4>Airtel Mobile Money Details</h4>
+                <input type="text" id="airtel-phone" placeholder="Airtel Mobile Money Phone Number">
+                <input type="password" id="airtel-pin" placeholder="Mobile Money PIN">
+            </div>
+
+            <div id="card-section" class="payment-section" style="display:none;">
+                <h4>Card Details</h4>
+                <input type="text" id="card-number" placeholder="Card Number" maxlength="19">
+                <input type="text" id="card-name" placeholder="Cardholder Name">
+                <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5">
+                <input type="text" id="card-cvv" placeholder="CVV" maxlength="3">
+            </div>
+
+            <div class="form-buttons">
+                <button type="button" onclick="window.location.href='checkout-step2.html'">Back to Order Summary</button>
+                <button type="submit">Complete Payment</button>
+            </div>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 JEBBI GADGETS. All rights reserved.</p>
+        <p>Contact: info@jebbigadgets.com</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="checkout.js"></script>
+</body>
+</html>
